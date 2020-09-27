@@ -26,7 +26,7 @@ namespace DSharpPlus.Interactivity.EventHandling
         /// <param name="timeout">Timeout time</param>
         public MatchRequest(Func<T, bool> predicate, TimeSpan timeout)
         {
-            this._tcs = new TaskCompletionSource<T>();
+            this._tcs = new TaskCompletionSource<T>(TaskCreationOptions.RunContinuationsAsynchronously);
             this._ct = new CancellationTokenSource(timeout);
             this._predicate = predicate;
             this._ct.Token.Register(() => _tcs.TrySetResult(null));
